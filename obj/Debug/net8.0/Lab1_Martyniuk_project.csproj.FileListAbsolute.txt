@@ -1,0 +1,14 @@
+/misc/MyProjects/ASPPR/Lab1_Martyniuk_project/bin/Debug/net8.0/Lab1_Martyniuk_project
+/misc/MyProjects/ASPPR/Lab1_Martyniuk_project/bin/Debug/net8.0/Lab1_Martyniuk_project.deps.json
+/misc/MyProjects/ASPPR/Lab1_Martyniuk_project/bin/Debug/net8.0/Lab1_Martyniuk_project.runtimeconfig.json
+/misc/MyProjects/ASPPR/Lab1_Martyniuk_project/bin/Debug/net8.0/Lab1_Martyniuk_project.dll
+/misc/MyProjects/ASPPR/Lab1_Martyniuk_project/bin/Debug/net8.0/Lab1_Martyniuk_project.pdb
+/misc/MyProjects/ASPPR/Lab1_Martyniuk_project/obj/Debug/net8.0/Lab1_Martyniuk_project.GeneratedMSBuildEditorConfig.editorconfig
+/misc/MyProjects/ASPPR/Lab1_Martyniuk_project/obj/Debug/net8.0/Lab1_Martyniuk_project.AssemblyInfoInputs.cache
+/misc/MyProjects/ASPPR/Lab1_Martyniuk_project/obj/Debug/net8.0/Lab1_Martyniuk_project.AssemblyInfo.cs
+/misc/MyProjects/ASPPR/Lab1_Martyniuk_project/obj/Debug/net8.0/Lab1_Martyniuk_project.csproj.CoreCompileInputs.cache
+/misc/MyProjects/ASPPR/Lab1_Martyniuk_project/obj/Debug/net8.0/Lab1_Martyniuk_project.dll
+/misc/MyProjects/ASPPR/Lab1_Martyniuk_project/obj/Debug/net8.0/refint/Lab1_Martyniuk_project.dll
+/misc/MyProjects/ASPPR/Lab1_Martyniuk_project/obj/Debug/net8.0/Lab1_Martyniuk_project.pdb
+/misc/MyProjects/ASPPR/Lab1_Martyniuk_project/obj/Debug/net8.0/Lab1_Martyniuk_project.genruntimeconfig.cache
+/misc/MyProjects/ASPPR/Lab1_Martyniuk_project/obj/Debug/net8.0/ref/Lab1_Martyniuk_project.dll
