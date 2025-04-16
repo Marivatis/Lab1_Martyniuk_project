@@ -43,6 +43,26 @@ static class ArrayFunctions
 
 class Program 
 {
+    private static void PrintEliminationStepInfo(double[,] matrix, int i, Pivot pivot)
+    {
+        System.Console.WriteLine($"\nStep: {i + 1}");
+        System.Console.WriteLine($"Pivot: {pivot.value,6:F2}");
+
+        System.Console.WriteLine(i != matrix.GetLength(0) - 1 ? "Active matrix: " : "\nInverse matrix: ");
+    }	
+
+    private static bool IsDiagonalNonZero(double[,] matrix)
+    {
+        for (int i = 0; i < matrix.GetLength(0); i++)
+        {
+            if (matrix[i, i] == 0)
+            {
+                return false;
+            }
+        }
+
+		return true;
+    }
 	public static double[,] PerformJordanEliminationStep(double[,] matrix, Pivot pivot, ref string[] colLabels, ref string[] rowLabels)
 	{		
 		double[,] activeMatrix = (double[,]) matrix.Clone();
@@ -90,85 +110,62 @@ class Program
 	
 	public static void FindInverseMatrix(double[,] matrix, string[] colLabels, string[] rowLabels)
 	{
-		System.Console.WriteLine("Given matrix: ");
-		MatrixFunctions.PrintMatrix<double>(matrix, colLabels, rowLabels);
-
-		for (int i = 0; i < matrix.GetLength(0); i++)
-		{		
-			if (matrix[i, i] == 0)
-			{
-				System.Console.Error.WriteLine("[Error] Pivot value can't be 0.");
-				return;
-			}	
-
-			Pivot pivot = new(matrix[i, i], i, i);
-
-			matrix = PerformJordanEliminationStep(matrix, pivot, ref colLabels, ref rowLabels);
-
-			System.Console.WriteLine($"\nStep: {i + 1}");
-			System.Console.WriteLine($"Pivot: {pivot.value,6:F2}");
-
-			System.Console.WriteLine(i != matrix.GetLength(0) - 1 ? "Active matrix: " : "\nInverse matrix: ");
-
-			MatrixFunctions.PrintMatrix<double>(matrix, colLabels, rowLabels);
-		}
-	}
-	public static void FindMatrixRank(double[,] matrix, string[] colLabels, string[] rowLabels)
-	{
-		System.Console.WriteLine("Given matrix: ");
-		MatrixFunctions.PrintMatrix<double>(matrix, colLabels, rowLabels);
-
-		int rank = 0;
-
-		for (int i = 0; i < matrix.GetLength(0); i++)
-		{		
-			if (matrix[i, i] == 0)
-			{
-				System.Console.Error.WriteLine("[Error] Pivot value can't be 0.");
-				return;
-			}				
-			
-			Pivot pivot = new(matrix[i, i], i, i);
-			
-			matrix = PerformJordanEliminationStep(matrix, pivot, ref colLabels, ref rowLabels);
-
-			rank++;
-
-			System.Console.WriteLine($"\nStep: {i + 1}");
-			System.Console.WriteLine($"Pivot: {pivot.value,6:F2}");
-			System.Console.WriteLine($"Active matrix: ");			
-
-			MatrixFunctions.PrintMatrix<double>(matrix, colLabels, rowLabels);
+		if (!IsDiagonalNonZero(matrix)) 
+		{
+			System.Console.Error.WriteLine("[Error] Pivot value can't be 0.");
+			return;
 		}
 
-		System.Console.WriteLine($"Matrix rank: {rank}");
-	}
-	public static void InverseMatrixSolveSLAE(double[,] matrix, double[] vector, string[] colLabels, string[] rowLabels)
+		for (int i = 0; i < matrix.GetLength(0); i++)
+        {
+            Pivot pivot = new(matrix[i, i], i, i);
+
+            matrix = PerformJordanEliminationStep(matrix, pivot, ref colLabels, ref rowLabels);
+
+            PrintEliminationStepInfo(matrix, i, pivot);
+            MatrixFunctions.PrintMatrix<double>(matrix, colLabels, rowLabels);
+        }
+    }
+    public static void FindMatrixRank(double[,] matrix, string[] colLabels, string[] rowLabels)
+    {
+		if (!IsDiagonalNonZero(matrix)) 
+		{
+			System.Console.Error.WriteLine("[Error] Pivot value can't be 0.");
+			return;
+		}
+
+        int rank = 0;
+
+        for (int i = 0; i < matrix.GetLength(0); i++)
+        {
+            Pivot pivot = new(matrix[i, i], i, i);
+
+            matrix = PerformJordanEliminationStep(matrix, pivot, ref colLabels, ref rowLabels);
+
+            rank++;
+
+            PrintEliminationStepInfo(matrix, i, pivot);
+            MatrixFunctions.PrintMatrix<double>(matrix, colLabels, rowLabels);
+        }
+
+        System.Console.WriteLine($"Matrix rank: {rank}");
+    }
+    public static void InverseMatrixSolveSLAE(double[,] matrix, double[] vector, string[] colLabels, string[] rowLabels)
 	{
-		System.Console.WriteLine("Given matrix: ");
-		MatrixFunctions.PrintMatrix<double>(matrix, colLabels, rowLabels);
-		System.Console.WriteLine("Given vector: ");
-		ArrayFunctions.PrintArray<double>(vector);
-		System.Console.WriteLine();
+		if (!IsDiagonalNonZero(matrix)) 
+		{
+			System.Console.Error.WriteLine("[Error] Pivot value can't be 0.");
+			return;
+		}
 
 		// Finding the inverse matrix 
 		for (int i = 0; i < matrix.GetLength(0); i++)
-		{
-			if (matrix[i, i] == 0)
-			{
-				System.Console.Error.WriteLine("[Error] Pivot value can't be 0.");
-				return;
-			}	
-			
+		{			
 			Pivot pivot = new(matrix[i, i], i, i);
 	
 			matrix = PerformJordanEliminationStep(matrix, pivot, ref colLabels, ref rowLabels);
 
-			System.Console.WriteLine($"\nStep: {i + 1}");
-			System.Console.WriteLine($"Pivot: {pivot.value,6:F2}");
-
-			System.Console.WriteLine(i != matrix.GetLength(0) - 1 ? "Active matrix: " : "\nInverse matrix: ");
-
+			PrintEliminationStepInfo(matrix, i, pivot);
 			MatrixFunctions.PrintMatrix<double>(matrix, colLabels, rowLabels);
 		}
 
@@ -233,10 +230,16 @@ class Program
 				case "1":
 					System.Console.WriteLine("\n[Running] Finding the inverse matrix.");
 
+					System.Console.WriteLine("Given matrix: ");
+					MatrixFunctions.PrintMatrix<double>(givenMatrix, colLabels, rowLabels);
+
 					FindInverseMatrix(givenMatrix, colLabels, rowLabels);
 					break;
 				case "2":
 					System.Console.WriteLine("\n[Running] Finding the rank of the matrix.");
+
+					System.Console.WriteLine("Given matrix: ");
+					MatrixFunctions.PrintMatrix<double>(givenMatrix, colLabels, rowLabels);
 
 					FindMatrixRank(givenMatrix, colLabels, rowLabels);
 					break;
@@ -247,6 +250,12 @@ class Program
 					{
 						rowLabels[i] = givenVector[i].ToString();
 					}
+
+					System.Console.WriteLine("Given matrix: ");
+					MatrixFunctions.PrintMatrix<double>(givenMatrix, colLabels, rowLabels);
+					System.Console.WriteLine("Given vector: ");
+					ArrayFunctions.PrintArray<double>(givenVector);
+					System.Console.WriteLine();
 
 					InverseMatrixSolveSLAE(givenMatrix, givenVector, colLabels, rowLabels);
 					break;

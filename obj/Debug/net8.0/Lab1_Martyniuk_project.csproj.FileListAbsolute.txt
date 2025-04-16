@@ -12,3 +12,4 @@
 /misc/MyProjects/ASPPR/Lab1_Martyniuk_project/obj/Debug/net8.0/Lab1_Martyniuk_project.pdb
 /misc/MyProjects/ASPPR/Lab1_Martyniuk_project/obj/Debug/net8.0/Lab1_Martyniuk_project.genruntimeconfig.cache
 /misc/MyProjects/ASPPR/Lab1_Martyniuk_project/obj/Debug/net8.0/ref/Lab1_Martyniuk_project.dll
+/misc/MyProjects/ASPPR/Lab1_Martyniuk_project/obj/Debug/net8.0/Lab1_Martyniuk_project.sourcelink.json
